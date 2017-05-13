@@ -13,12 +13,16 @@ Gallery.prototype = {
     width: '1000px',
     imgSize: '500px',
     gallery: document.createElement('div'),
+    container: document.getElementById('galleryContainer'),
     init: function(){
+        // Resets the html
+        this.reset();
+
         // Inits the gallery
         this.renderGallery();
        
         // Inits the backward button
-        this.backward(this.renderGallery);
+        this.backward();
 
         // Inits the forward button
         this.forward();
@@ -33,45 +37,59 @@ Gallery.prototype = {
         img.style.width = this.imgSize;
         img.style.height = this.imgSize;
         this.gallery.appendChild(img);       
-        document.body.appendChild(this.gallery);    
+        this.container.appendChild(this.gallery);    
     },
-    backward: function(renderGallery){
+    backward: function(){
         var i = document.createElement('i');
+        var _self = this;        
         i.classList.add('fa','fa-backward');
         i.setAttribute('aria-hidden', 'true');
         i.style.fontSize = '40px';
         i.style.cursor = 'pointer';
-        i.addEventListener('click', function( _self){
-            //Currently not working
-            this.index--;
-            if(this.index <= 0){
-                this.index = this.total-1;
+        i.addEventListener('click', function(){
+            console.log(_self);
+            if(_self.index <= 0) {
+                _self.index = _self.total-1;
+                _self.alt[_self.total-1];                
+            }
+            else{
+                _self.index--; 
+                _self.alt[_self.index];                                           
             };
-            console.log(renderGallery)          
-            this.renderGallery();
+            _self.init();
         })
         this.gallery.insertBefore(i, this.gallery.firstChild);      
     },
     forward: function(){
         var i = document.createElement('i');
+        var _self = this;                
         i.classList.add('fa','fa-forward');
         i.setAttribute('aria-hidden', 'true');
         i.style.fontSize = '40px';
         i.style.cursor = 'pointer';
         i.addEventListener('click', function(){
-            this.index--;
-            this.renderGallery();
+            console.log(_self);
+            if(_self.index >= _self.total-1) {
+                _self.index = 0;
+                _self.alt[0];
+            }
+            else{
+                _self.index++; 
+                _self.alt[_self.index];                          
+            };
+            _self.init();
         })
-        document.body.appendChild(i);      
+        this.gallery.appendChild(i);      
+    },
+    reset: function(){
+        this.gallery.innerHTML = '';        
+        this.container.innerHTML = '';
     },
     
 }
+var g1 = new Gallery({
+    'url': ['img/tortugas/tortuga1.jpg','img/tortugas/tortuga2.jpg','img/tortugas/tortuga3.jpg','img/tortugas/tortuga4.jpg','img/tortugas/tortuga5.jpg'],
+    'alt': ['Imagen de Tortuga1','Imagen de Tortuga2','Imagen de Tortuga3','Imagen de Tortuga4','Imagen de Tortuga5'],
+});
 
-var obj = {
-    'url': ['http://cdn01.ib.infobae.com/adjuntos/162/imagenes/014/014/0014014674.jpg','https://lh4.googleusercontent.com/eHuqFM1kf010LnscLCvuEWjworpb1TO7-1CLwcIXsmDb-0yxqWwOHFDzBKHal056Ughq3anz1ipCutjacHQ2Mc3dQQ67D37FN2VnvobKK53q5e2SAhw4CKsWIMT-UgyuDdc2e4o'],
-    'alt': ['Imagen de Hamster','Imagen de cachorro de tigre'],
-}
-
-var g1 = new Gallery(obj);
 g1.init();
-console.log(g1);
