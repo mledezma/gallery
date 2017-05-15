@@ -54,7 +54,7 @@ Gallery.prototype = {
         i.style.fontSize = '40px';
         i.style.cursor = 'pointer';
         i.style.marginRight = '30px';        
-        i.addEventListener('click', function(){
+        i.addEventListener('click', function() {
             var img = this.parentNode.getElementsByTagName('img')[0];
             var p = this.parentNode.getElementsByTagName('p')[0];
             if(_self.index <= 0) {
