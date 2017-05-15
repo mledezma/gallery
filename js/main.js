@@ -106,8 +106,6 @@ Gallery.prototype = {
     reset: function() {
         this.gallery.innerHTML = '';    
     },
-    
-    
 }
 // Gallery 1
 var g1 = new Gallery({
