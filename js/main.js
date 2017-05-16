@@ -47,7 +47,7 @@ Gallery.prototype = {
         document.body.appendChild(this.container);
     },
     backward: function() {
-        var i = document.createElement('i');
+        var i = document.createElement('button');
         var _self = this;        
         i.classList.add('fa','fa-backward');
         i.setAttribute('aria-hidden', 'true');
@@ -73,7 +73,7 @@ Gallery.prototype = {
         this.gallery.insertBefore(i, this.gallery.firstChild);      
     },
     forward: function() {
-        var i = document.createElement('i');
+        var i = document.createElement('button');
         var _self = this;                
         i.classList.add('fa','fa-forward');
         i.setAttribute('aria-hidden', 'true');
